@@ -4,6 +4,8 @@ import { GlobalContext } from "../contexts/context";
 
 //MUI icons
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
+//router
 import { NavLink, useLocation } from "react-router-dom";
 
 export default function Header() {

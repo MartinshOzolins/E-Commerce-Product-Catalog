@@ -2,9 +2,6 @@
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
-//global context provider
-import GlobalDataProvider from "./contexts/GlobalDataProvider";
-
 //pages
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
@@ -15,7 +12,7 @@ import { Route, Routes } from "react-router-dom";
 
 export default function App() {
   return (
-    <GlobalDataProvider>
+    <>
       <header className="row-start-1">
         <Header />
       </header>
@@ -29,6 +26,6 @@ export default function App() {
       <footer className="row-start-3">
         <Footer />
       </footer>
-    </GlobalDataProvider>
+    </>
   );
 }

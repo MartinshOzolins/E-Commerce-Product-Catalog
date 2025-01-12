@@ -1,4 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+
+//Global Context
+import { GlobalContext } from "../contexts/context";
 
 //react-router-imports
 import { useParams } from "react-router-dom";
@@ -9,6 +12,8 @@ import { useProduct } from "../hooks/useProduct";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function ProductDetail() {
+  const { setCart } = useContext(GlobalContext);
+
   // Retrieves id from useParams of product that user clicked
   const { id } = useParams();
   // Gets query client instance to get cached data
@@ -78,9 +83,8 @@ export default function ProductDetail() {
             </p>
             <button
               className="mt-3 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
+              onClick={() => {
+                setCart((prev) => [...prev, product]);
               }}
             >
               Add to Cart

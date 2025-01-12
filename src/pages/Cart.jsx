@@ -32,6 +32,7 @@ export default function Cart() {
     setFilteredArray(mergeCart(cart));
   }, [cart]);
 
+  //Handles increment
   const handleIncrement = (productToIncrement) => {
     setCart(() => {
       let newArray = [];
@@ -58,6 +59,7 @@ export default function Cart() {
     });
   };
 
+  // Handles decrement
   const handleDecrement = (productToDecrement) => {
     setCart(() => {
       let newArray = [];
@@ -85,6 +87,8 @@ export default function Cart() {
       return newArray;
     });
   };
+
+  //
 
   return (
     <div className="w-full flex flex-col justify-center items-center px-4">
@@ -116,52 +120,69 @@ export default function Cart() {
           {/* Products Section */}
           <div className="flex flex-col">
             {filteredArray.map((product) => (
-              <div
-                className="flex flex-row items-center border-b pb-4 mb-4"
-                key={product.id}
-              >
-                <div className="w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden">
-                  <img
-                    className="w-full h-full object-cover"
-                    src={
-                      product.images?.[0]?.includes("any")
-                        ? "/default.webp"
-                        : product.images?.[0]?.replace(/[["\]]/g, "") ||
-                          "/default.webp"
-                    }
-                    alt={product.title}
-                  />
-                </div>
-                <div className="h-full flex flex-col ml-4 text-sm items-start justify-start">
-                  <div className="flex flex-col">
-                    <p className="font-medium">{product.title}</p>
-                    <p className="text-gray-500 text-xs">${product.price}</p>
+              <NavLink key={product.id} to={`/product/${product.id}`}>
+                <div className="flex flex-row items-center border-b pb-4 mb-4">
+                  <div className="w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden">
+                    <img
+                      className="w-full h-full object-cover"
+                      src={
+                        product.images?.[0]?.includes("any")
+                          ? "/default.webp"
+                          : product.images?.[0]?.replace(/[["\]]/g, "") ||
+                            "/default.webp"
+                      }
+                      alt={product.title}
+                    />
                   </div>
-                  <div className="flex flex-row items-center ">
-                    <div className="flex flex-row items-center">
-                      <span>Quantity:</span>
-                      <input
-                        value={product.quantity}
-                        className="ml-1 w-12 text-center border rounded"
-                        readOnly
-                      />
-                      <div className="flex flex-col ml-1">
-                        <AddIcon
-                          style={{ fontSize: 15, cursor: "pointer" }}
-                          onClick={() => handleIncrement(product)}
-                        />
-                        <RemoveIcon
-                          style={{ fontSize: 15, cursor: "pointer" }}
-                          onClick={() => handleDecrement(product)}
-                        />
-                      </div>
+                  <div className="h-full flex flex-col ml-4 text-sm items-start justify-start">
+                    <div className="flex flex-col">
+                      <p className="font-medium">{product.title}</p>
+                      <p className="text-gray-500 text-xs">${product.price}</p>
                     </div>
-                    <button className="text-red-500 hover:underline ml-2 mb-1">
-                      Remove
-                    </button>
+                    <div className="flex flex-row items-center ">
+                      <div className="flex flex-row items-center">
+                        <span>Quantity:</span>
+                        <input
+                          value={product.quantity}
+                          className="ml-1 w-12 text-center border rounded"
+                          readOnly
+                        />
+                        <div className="flex flex-col ml-1">
+                          <AddIcon
+                            style={{
+                              fontSize: 16,
+                              cursor: "pointer",
+                            }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              handleIncrement(product);
+                            }}
+                          />
+                          <RemoveIcon
+                            style={{ fontSize: 16, cursor: "pointer" }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              handleDecrement(product);
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <button
+                        className="text-red-500 hover:underline ml-2 mb-1"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          handleIncrement(product);
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </NavLink>
             ))}
           </div>
           <div className="flex flex-col items-center justify-center p-4 border rounded-md shadow-sm max-h-64 ">
