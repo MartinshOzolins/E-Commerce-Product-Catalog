@@ -71,7 +71,7 @@ export default function Home() {
                   </p>
                   <div className="flex justify-center mt-4 justify-self-end">
                     <button
-                      className="text-black px-3 py-2 rounded-md border hover:bg-gray-100 transition"
+                      className=" px-3 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
                       onClick={(e) => {
                         e.stopPropagation();
                         e.preventDefault();

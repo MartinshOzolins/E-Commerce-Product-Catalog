@@ -1,9 +1,12 @@
-import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
+//react-router-imports
 import { useParams } from "react-router-dom";
+
+//custom api call hook
 import { useProduct } from "../hooks/useProduct";
-import { useEffect } from "react";
+//tanstack-query import for accessing useQueryClient
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ProductDetail() {
   // Retrieves id from useParams of product that user clicked
@@ -44,18 +47,45 @@ export default function ProductDetail() {
   if (isLoading) {
     return (
       <div>
-        <p>Loading products...</p>
+        <p>Loading product...</p>
       </div>
     );
   }
+
   return (
-    <div>
-      <h1>Product Detail</h1>
+    <div className="flex flex-col items-center p-4 sm:p-10">
+      <h1 className="text-2xl font-bold mb-8">Product Detail</h1>
       {product && (
-        <div className="flex flex-col items-center">
-          <h2>{product.title}</h2>
-          <p>{product.description}</p>
-          <p className="">${product.price}</p>
+        <div className="w-full max-w-4xl flex flex-col sm:flex-row items-center sm:items-start bg-white rounded-lg shadow-md overflow-hidden">
+          <img
+            className="w-full sm:w-1/2 h-64 sm:h-auto object-cover"
+            src={
+              product.images?.[0].includes("any")
+                ? "../public/default.webp"
+                : product.images?.[0].replace(/[["\]]/g, "")
+            }
+            alt={product.title}
+          />
+          <div className="p-6 flex flex-col justify-between w-full sm:w-1/2">
+            <h2 className="text-2xl font-semibold text-center sm:text-left truncate">
+              {product.title}
+            </h2>
+            <p className="text-md text-start sm:text-left mt-3">
+              {product.description}
+            </p>
+            <p className="text-xl text-gray-600 text-center sm:text-start mt-4">
+              ${product.price}
+            </p>
+            <button
+              className="mt-3 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+              }}
+            >
+              Add to Cart
+            </button>
+          </div>
         </div>
       )}
     </div>

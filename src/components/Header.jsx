@@ -24,7 +24,7 @@ export default function Header() {
         </h1>
       </div>
       {!location.pathname.includes("/cart") && (
-        <NavLink to="/cart" className="mt-4 ml-5 sm:ml-10">
+        <NavLink to="/cart" className="mt-4 mr-1 sm:mr-5">
           <div className="relative">
             <ShoppingCartIcon className="text-black" style={{ fontSize: 32 }} />
             {cart.length > 0 && (
