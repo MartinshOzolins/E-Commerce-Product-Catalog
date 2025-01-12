@@ -8,6 +8,8 @@ import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import SignIn from "./pages/SignIn";
 import Orders from "./pages/Orders";
+import About from "./pages/About";
+import Profile from "./pages/Profile";
 
 // Import components and router-related functions from 'react-router-dom'
 import { Route, Routes } from "react-router-dom";
@@ -25,7 +27,8 @@ export default function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/authentication" element={<SignIn />} />
           <Route path="/orders" element={<Orders />} />
-          <Route path="/signin" element={<Orders />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </main>
       <footer className="row-start-3">

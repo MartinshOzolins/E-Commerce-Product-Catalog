@@ -39,6 +39,7 @@ export default function Home() {
 
   useEffect(() => {
     filterData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chosenCategory, page, data, searchInput]);
 
   // Handles different states of fetching
@@ -57,12 +58,14 @@ export default function Home() {
                   onError={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    e.target.src = "../public/default.webp";
+                    if (!e.target.src.includes("/default.webp")) {
+                      e.target.src = "/default.webp"; // Only set fallback once
+                    }
                   }}
                   className="w-full h-48 object-cover"
                   src={
-                    product.images?.[0].includes("any")
-                      ? "../public/default.webp"
+                    product.images?.[0].includes("anyvia")
+                      ? "/default.webp"
                       : product.images?.[0].replace(/[["\]]/g, "")
                   }
                   alt={product.title}

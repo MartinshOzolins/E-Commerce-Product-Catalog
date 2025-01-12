@@ -28,14 +28,7 @@ export default function Header() {
           style={{ fontSize: 32 }}
           onClick={toggleMenu}
         />
-        <NavLink
-          to="/"
-          className={
-            location.pathname.includes("/cart")
-              ? `text-xl md:text-3xl md:mt-2`
-              : `text-xl md:text-2xl md:mt-2`
-          }
-        >
+        <NavLink to="/" className="text-1xl md:text-3xl">
           GoodsHub
         </NavLink>
       </div>

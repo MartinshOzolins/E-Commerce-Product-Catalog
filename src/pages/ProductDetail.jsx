@@ -65,11 +65,11 @@ export default function ProductDetail() {
           <img
             className="w-full sm:w-1/2 h-64 sm:h-auto object-cover"
             onError={(e) => {
-              e.target.src = "../public/default.webp";
+              e.target.src = "/default.webp";
             }}
             src={
               product.images?.[0].includes("any")
-                ? "../public/default.webp"
+                ? "/default.webp"
                 : product.images?.[0].replace(/[["\]]/g, "")
             }
             alt={product.title}
