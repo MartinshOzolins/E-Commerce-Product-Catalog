@@ -54,6 +54,11 @@ export default function Home() {
             <NavLink key={product.id} to={`/product/${product.id}`}>
               <div className="w-full h-[340px] flex flex-col max-w-xs bg-white rounded-lg shadow-md overflow-hidden">
                 <img
+                  onError={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.target.src = "../public/default.webp";
+                  }}
                   className="w-full h-48 object-cover"
                   src={
                     product.images?.[0].includes("any")

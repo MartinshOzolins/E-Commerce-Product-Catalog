@@ -64,6 +64,9 @@ export default function ProductDetail() {
         <div className="w-full max-w-4xl flex flex-col sm:flex-row items-center sm:items-start bg-white rounded-lg shadow-md overflow-hidden">
           <img
             className="w-full sm:w-1/2 h-64 sm:h-auto object-cover"
+            onError={(e) => {
+              e.target.src = "../public/default.webp";
+            }}
             src={
               product.images?.[0].includes("any")
                 ? "../public/default.webp"

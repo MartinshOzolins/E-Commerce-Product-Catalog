@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { GlobalContext } from "../contexts/context";
 import { NavLink } from "react-router-dom";
 
@@ -7,8 +7,8 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
 export default function Cart() {
-  const { cart, setCart } = useContext(GlobalContext);
-  const [filteredArray, setFilteredArray] = useState([]);
+  const { cart, setCart, filteredArray, setFilteredArray } =
+    useContext(GlobalContext);
 
   // Merge identical items in the cart (runs whenever the cart is updated)
   const mergeCart = (cart) => {
@@ -30,6 +30,7 @@ export default function Cart() {
   // Updates filteredArray whenever the cart changes
   useEffect(() => {
     setFilteredArray(mergeCart(cart));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
   //Handles increment
@@ -87,8 +88,29 @@ export default function Cart() {
       return newArray;
     });
   };
-
-  //
+  // Handles removal of item from cart
+  const handleRemove = (productToRemove) => {
+    setCart(() => {
+      let newArray = [];
+      // Loops through filteredArray
+      filteredArray.forEach((product) => {
+        // Finds product to remove
+        if (product.id === productToRemove.id) {
+          //does not push it into the newArray
+          return;
+        } else {
+          const count = product.quantity;
+          const updatedProduct = { ...product };
+          for (let i = 0; i < count; i++) {
+            //loops count times and adds product as many times as is updated count
+            // allowing to merge them again when page re-loads
+            newArray.push(updatedProduct);
+          }
+        }
+      });
+      return newArray;
+    });
+  };
 
   return (
     <div className="w-full flex flex-col justify-center items-center px-4">
@@ -117,14 +139,16 @@ export default function Cart() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-6 mt-8">
-          {/* Products Section */}
           <div className="flex flex-col">
             {filteredArray.map((product) => (
               <NavLink key={product.id} to={`/product/${product.id}`}>
                 <div className="flex flex-row items-center border-b pb-4 mb-4">
                   <div className="w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden">
                     <img
-                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.src = "../public/default.webp";
+                      }}
+                      className="w-full h-full object-contain"
                       src={
                         product.images?.[0]?.includes("any")
                           ? "/default.webp"
@@ -139,7 +163,7 @@ export default function Cart() {
                       <p className="font-medium">{product.title}</p>
                       <p className="text-gray-500 text-xs">${product.price}</p>
                     </div>
-                    <div className="flex flex-row items-center ">
+                    <div className="flex flex-col items-center sm:flex-row">
                       <div className="flex flex-row items-center">
                         <span>Quantity:</span>
                         <input
@@ -174,7 +198,7 @@ export default function Cart() {
                         onClick={(e) => {
                           e.stopPropagation();
                           e.preventDefault();
-                          handleIncrement(product);
+                          handleRemove(product);
                         }}
                       >
                         Remove

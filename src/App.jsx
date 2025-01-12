@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
+import SignIn from "./pages/SignIn";
+import Orders from "./pages/Orders";
 
 // Import components and router-related functions from 'react-router-dom'
 import { Route, Routes } from "react-router-dom";
@@ -21,6 +23,9 @@ export default function App() {
           <Route index="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/authentication" element={<SignIn />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/signin" element={<Orders />} />
         </Routes>
       </main>
       <footer className="row-start-3">
