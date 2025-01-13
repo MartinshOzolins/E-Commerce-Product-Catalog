@@ -45,7 +45,26 @@ export default function Home() {
   // Handles different states of fetching
   if (isError)
     return <p className="text-red-500">{error?.message || "Error occured"}</p>;
-  if (isLoading) return <p className="text-gray-500">Loading data....</p>;
+  if (isLoading)
+    return (
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 px-4 justify-center items-center">
+        {[...new Array(8)].map((_, index) => (
+          <div
+            key={index}
+            className="w-full h-[340px] flex flex-col max-w-xs bg-white rounded-lg shadow-md overflow-hidden animate-pulse"
+          >
+            <div className="w-full h-48 bg-gray-300"></div>
+            <div className="p-4 flex flex-col items-center">
+              <div className="h-6 bg-gray-300 rounded w-3/4 mb-2 "></div>
+              <div className="h-4 bg-gray-300 rounded w-1/3 "></div>
+            </div>
+            <div className="p-4 flex justify-center">
+              <div className="h-10 bg-gray-300 rounded w-2/3"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
 
   return (
     <div className="flex flex-col items-center justify-center py-6 px-4">
@@ -60,7 +79,7 @@ export default function Home() {
                     e.preventDefault();
                     e.stopPropagation();
                     if (!e.target.src.includes("/default.webp")) {
-                      e.target.src = "/default.webp"; // Only set fallback once
+                      e.target.src = "/default.webp";
                     }
                   }}
                   className="w-full h-48 object-cover"
