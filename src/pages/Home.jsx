@@ -43,7 +43,8 @@ export default function Home() {
   }, [chosenCategory, page, data, searchInput]);
 
   // Handles different states of fetching
-  if (isError) return <p className="text-red-500">{error?.message}</p>;
+  if (isError)
+    return <p className="text-red-500">{error?.message || "Error occured"}</p>;
   if (isLoading) return <p className="text-gray-500">Loading data....</p>;
 
   return (

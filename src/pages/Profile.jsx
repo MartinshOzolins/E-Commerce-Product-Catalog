@@ -16,7 +16,7 @@ export default function Profile() {
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuthenticated) return navigate("/authentication");
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedFullName, setEditedFullName] = useState(fullName || "John Wick");

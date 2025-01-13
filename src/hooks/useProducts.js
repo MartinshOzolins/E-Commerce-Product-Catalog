@@ -9,5 +9,7 @@ export const useProducts = () => {
         queryKey: ["products"],
         queryFn: () => fetchProducts(),
         retry: 3,
+        staleTime: 300000, 
+        cacheTime: 600000,
     })
 }
