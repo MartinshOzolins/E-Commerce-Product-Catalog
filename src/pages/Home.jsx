@@ -47,7 +47,7 @@ export default function Home() {
     return <p className="text-red-500">{error?.message || "Error occured"}</p>;
   if (isLoading)
     return (
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 px-4 justify-center items-center">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6 px-4 items-center justify-items-center">
         {[...new Array(8)].map((_, index) => (
           <div
             key={index}
